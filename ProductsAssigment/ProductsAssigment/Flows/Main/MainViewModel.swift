@@ -23,18 +23,22 @@ class MainViewModel: ObservableObject {
     init(dependencies: Dependencies, delegate: MainViewDelegate?) {
         self.dependencies = dependencies
         self.delegate = delegate
-        fetchProducts()
+        fetchProducts(useCache: true)
     }
     
     func onProductTapped(product: Model.Product) {
         delegate?.mainViewWantsToShowDetails(of: product)
     }
     
-    private func fetchProducts() {
-        Task {
+    private func fetchProducts(useCache: Bool) {
+        Task { [weak self] in
             do {
-                let products = try await dependencies.api.getProducts(useCache: false)
-                self.products = products.map { Model.Product(apiModel: $0) }
+                let productsResponse = try await dependencies.api.getProducts(useCache: useCache)
+                self?.products = productsResponse.products.map { Model.Product(apiModel: $0) }
+
+                if productsResponse.isFromCache {
+                    self?.fetchProducts(useCache: false)
+                }
             } catch  {
                 print(error)
             }
