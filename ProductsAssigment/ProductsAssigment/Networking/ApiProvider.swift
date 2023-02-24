@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ApiProviderProtocol {
-    func getProducts(useCache: Bool) async throws -> [Product]
+    func getProducts(useCache: Bool) async throws -> [APIModel.Product]
 }
 
 class ApiProvider: ApiProviderProtocol {
@@ -21,7 +21,7 @@ class ApiProvider: ApiProviderProtocol {
         self.persistantStorage = persistantStorage
     }
     
-    func getProducts(useCache: Bool) async throws -> [Product] {
+    func getProducts(useCache: Bool) async throws -> [APIModel.Product] {
         let url = URL(string: "https://run.mocky.io/v3/1c4cfa98-e329-4d49-8836-8ee195cec131")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -30,7 +30,7 @@ class ApiProvider: ApiProviderProtocol {
             let response = try await session.data(for: request)
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            let products = try decoder.decode([Product].self, from: response.0)
+            let products = try decoder.decode([APIModel.Product].self, from: response.0)
             return products
         } catch {
             print(error)

@@ -8,7 +8,7 @@
 import Combine
 
 protocol MainViewDelegate: AnyObject {
-    func mainViewWantsToShowDetails(of product: Product)
+    func mainViewWantsToShowDetails(of product: Model.Product)
 }
 
 @MainActor
@@ -18,7 +18,7 @@ class MainViewModel: ObservableObject {
     private let dependencies: Dependencies
     private weak var delegate: MainViewDelegate?
     
-    @Published var products: [Product] = []
+    @Published var products: [Model.Product] = []
     
     init(dependencies: Dependencies, delegate: MainViewDelegate?) {
         self.dependencies = dependencies
@@ -26,7 +26,7 @@ class MainViewModel: ObservableObject {
         fetchProducts()
     }
     
-    func onProductTapped(product: Product) {
+    func onProductTapped(product: Model.Product) {
         delegate?.mainViewWantsToShowDetails(of: product)
     }
     
@@ -34,7 +34,7 @@ class MainViewModel: ObservableObject {
         Task {
             do {
                 let products = try await dependencies.api.getProducts(useCache: false)
-                self.products = products
+                self.products = products.map { Model.Product(apiModel: $0) }
             } catch  {
                 print(error)
             }

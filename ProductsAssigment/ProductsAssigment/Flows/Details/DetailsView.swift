@@ -11,7 +11,32 @@ struct DetailsView: View {
     @ObservedObject var viewModel: DetailsViewModel
 
     var body: some View {
-        Text("Details")
+        VStack(alignment: .leading) {
+            Group {
+                Text("Price:").font(.system(size: 12))
+                Text("\(viewModel.product.price, specifier: "%.2f")")
+                    .padding(.bottom, 20)
+
+                Text("Description:").font(.system(size: 12))
+                Text(viewModel.product.description)
+            }
+            .padding(.leading, 10)
+       
+            GeometryReader { geo in
+                AsyncImage(url: URL(string: viewModel.product.imageUrl)) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: geo.size.width)
+                } placeholder: {
+                    Color.white
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: geo.size.width)
+
+                }
+            }
+            
+        }
     }
     
     init(viewModel: DetailsViewModel) {

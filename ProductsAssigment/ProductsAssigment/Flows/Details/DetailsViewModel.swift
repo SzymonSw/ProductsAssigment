@@ -8,9 +8,9 @@
 import Combine
 
 class DetailsViewModel: ObservableObject {
-    @Published var product: Product
+    @Published var product: Model.Product
     
-    init(product: Product) {
+    init(product: Model.Product) {
         self.product = product
     }
    

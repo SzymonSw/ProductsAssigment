@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProductCellView: View {
-    let product: Product
+    let product: Model.Product
     
     var body: some View {
         HStack {

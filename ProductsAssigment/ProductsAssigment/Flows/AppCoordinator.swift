@@ -24,7 +24,7 @@ class AppCoordinator {
         mainNav.setViewControllers([mainViewController], animated: false)
     }
 
-    private func pushToDetails(product: Product) {
+    private func pushToDetails(product: Model.Product) {
         let vm = DetailsViewModel(product: product)
         let vc = UIHostingController(rootView: DetailsView(viewModel: vm))
         vc.title = "\(product.name)"
@@ -33,7 +33,7 @@ class AppCoordinator {
 }
 
 extension AppCoordinator: MainViewDelegate {
-    func mainViewWantsToShowDetails(of product: Product) {
+    func mainViewWantsToShowDetails(of product: Model.Product) {
         pushToDetails(product: product)
     }
 }
