@@ -20,6 +20,7 @@
 		FF71160929A8FD6C00681C83 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF71160829A8FD6C00681C83 /* DetailsViewModel.swift */; };
 		FF71160C29A8FDE500681C83 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF71160B29A8FDE500681C83 /* Product.swift */; };
 		FF71160F29A903A200681C83 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF71160E29A903A200681C83 /* Launch Screen.storyboard */; };
+		FF71161129A90A9500681C83 /* ProductCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF71161029A90A9500681C83 /* ProductCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		FF71160829A8FD6C00681C83 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		FF71160B29A8FDE500681C83 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		FF71160E29A903A200681C83 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		FF71161029A90A9500681C83 /* ProductCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				FF71160129A8FCCF00681C83 /* MainView.swift */,
+				FF71161029A90A9500681C83 /* ProductCellView.swift */,
 				FF71160329A8FCF100681C83 /* MainViewModel.swift */,
 			);
 			path = Main;
@@ -259,6 +262,7 @@
 				FF71160229A8FCCF00681C83 /* MainView.swift in Sources */,
 				FF71160729A8FD6300681C83 /* DetailsView.swift in Sources */,
 				FF7115F829A8FBB200681C83 /* AppCoordinator.swift in Sources */,
+				FF71161129A90A9500681C83 /* ProductCellView.swift in Sources */,
 				FF7115FC29A8FC0600681C83 /* ApiProvider.swift in Sources */,
 				FF71160C29A8FDE500681C83 /* Product.swift in Sources */,
 				FF7115CD29A8FAFE00681C83 /* AppDelegate.swift in Sources */,

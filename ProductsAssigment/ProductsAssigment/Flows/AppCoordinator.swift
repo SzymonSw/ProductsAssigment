@@ -15,16 +15,19 @@ class AppCoordinator {
 
     func startWith(rootNavController: UINavigationController) {
         mainNav = rootNavController
-        dependencies = AppDependency(api: ApiProvider(), storage: PersistantStorage())
+        let persistantStorage = PersistantStorage()
+        dependencies = AppDependency(api: ApiProvider(persistantStorage: persistantStorage), storage: persistantStorage)
 
         let mainViewModel = MainViewModel(dependencies: dependencies, delegate: self)
         let mainViewController = UIHostingController(rootView: MainView(viewModel: mainViewModel))
+        mainViewController.title = "Products"
         mainNav.setViewControllers([mainViewController], animated: false)
     }
 
     private func pushToDetails(product: Product) {
         let vm = DetailsViewModel(product: product)
         let vc = UIHostingController(rootView: DetailsView(viewModel: vm))
+        vc.title = "\(product.name)"
         mainNav.pushViewController(vc, animated: true)
     }  
 }
