@@ -8,50 +8,32 @@
 import Foundation
 
 protocol PersistantStorageProtocol {
-    func cacheResponseData(data: Data, for url: String) async
-    func getCachedResponseData(for url: String) async -> Data?
+    func cacheResponseData(data: Data, for request: ApiRequests) async
+    func getCachedResponseData(for request: ApiRequests) async throws -> Data
 }
 
 actor PersistantStorage: PersistantStorageProtocol {
-    var cachedResponsesFilePath: URL {
-        let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        let filePath = cachesDirectory.appendingPathComponent("cachedResponses.dat")
-        return filePath
-    }
-
-    func cacheResponseData(data: Data, for url: String) async {
-        var storedDict: [NSString: NSData] = [:]
-        if let dict = await getCachedRsponsesDict() {
-            storedDict = dict
-        }
-        storedDict[NSString(string: url)] = NSData(data: data)
+    
+    private let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+    
+    func cacheResponseData(data: Data, for request: ApiRequests) async {
+        let filePath = cachesDirectory.appendingPathComponent("\(request.hashString).dat")
         do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: storedDict, requiringSecureCoding: false)
-            try data.write(to: cachedResponsesFilePath)
-
+            try data.write(to: filePath)
+            return
         } catch {
             print(error)
         }
     }
     
-    func getCachedResponseData(for url: String) async -> Data? {
-        if let storedDict = await getCachedRsponsesDict(),
-           let nsData = storedDict[NSString(string: url)] {
-            let data = Data(nsData)
-            return data
-        } else {
-            return nil
-        }
-    }
-    
-    private func getCachedRsponsesDict() async -> [NSString: NSData]? {
+    func getCachedResponseData(for request: ApiRequests) async throws -> Data {
+        let filePath = cachesDirectory.appendingPathComponent("\(request.hashString).dat")
+        
         do {
-            let data = try Data(contentsOf: cachedResponsesFilePath)
-            let storedDict = try NSKeyedUnarchiver.unarchivedDictionary(ofKeyClass: NSString.self, objectClass: NSData.self, from: data)
-            return storedDict
-
+            let storedData = try Data(contentsOf: filePath)
+            return storedData
         } catch {
-            return nil
+            throw error
         }
     }
     

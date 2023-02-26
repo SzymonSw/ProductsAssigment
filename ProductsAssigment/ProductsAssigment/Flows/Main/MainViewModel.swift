@@ -34,8 +34,8 @@ class MainViewModel: ObservableObject {
     private func fetchProducts(useCache: Bool) {
         Task {
             do {
-                let productsResponse = try await dependencies.api.getProducts(useCache: useCache)
-                products = productsResponse.products.map { Model.Product(apiModel: $0) }
+                let productsResponse = try await dependencies.api.sendRequest(request: .getProducts, useCache: useCache, resultType: [APIModel.Product].self) 
+                products = productsResponse.result.map { Model.Product(apiModel: $0) }
 
                 if productsResponse.isFromCache {
                     fetchProducts(useCache: false)
@@ -45,7 +45,7 @@ class MainViewModel: ObservableObject {
                 if let apiError = error as? ApiError {
                     errorMessage = apiError.message
                 } else {
-                    print(error)
+                    errorMessage = error.localizedDescription
                 }
             }
         }

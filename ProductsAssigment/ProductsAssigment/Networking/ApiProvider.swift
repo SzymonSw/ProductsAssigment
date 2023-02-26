@@ -6,40 +6,72 @@
 //
 
 import Foundation
+import CryptoKit
 
 protocol ApiProviderProtocol {
-    func getProducts(useCache: Bool) async throws -> (products: [APIModel.Product], isFromCache: Bool)
+    func sendRequest<T>(request: ApiRequests, useCache: Bool, resultType: T.Type) async throws -> (result: T, isFromCache: Bool) where T: Decodable
+}
+
+enum ApiRequests {
+    case getProducts
+    
+    var method: String {
+        switch self {
+        case .getProducts:
+            return "GET"
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .getProducts:
+            return "/v3/1c4cfa98-e329-4d49-8836-8ee195cec131"
+        }
+    }
+    
+    var hashString: String {
+        let inputData = Data(path.utf8)
+        let hashed = SHA256.hash(data: inputData)
+        let hashString = hashed.compactMap { String(format: "%02x", $0) }.joined()
+        return hashString
+    }
 }
 
 class ApiProvider: ApiProviderProtocol {
 
     private let persistantStorage: PersistantStorageProtocol
     private let session = URLSession.shared
+    private let host: String = "https://run.mocky.io"
 
     init(persistantStorage: PersistantStorageProtocol) {
         self.persistantStorage = persistantStorage
     }
     
-    func getProducts(useCache: Bool) async throws -> (products: [APIModel.Product], isFromCache: Bool) {
-        let url = URL(string: "https://run.mocky.io/v3/1c4cfa98-e329-4d49-8836-8ee195cec131")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
+    func sendRequest<T>(request: ApiRequests,
+                        useCache: Bool,
+                        resultType: T.Type) async throws -> (result: T, isFromCache: Bool) where T: Decodable {
+        let url = URL(string: host + request.path)!
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = request.method
         
-        if useCache, let cachedData = await persistantStorage.getCachedResponseData(for: url.absoluteString) {
+        if useCache {
             do {
-                let products: [APIModel.Product] = try decodeObject(from: cachedData)
-                return (products, true)
+                let cachedData = try await persistantStorage.getCachedResponseData(for: request)
+                let result: T = try decodeObject(from: cachedData)
+                return (result, true)
+            } catch {
+                throw error
             }
         }
         
         do {
-            let response = try await session.data(for: request)
+            let response = try await session.data(for: urlRequest)
             Task {
-                await persistantStorage.cacheResponseData(data: response.0, for: url.absoluteString)
+                await persistantStorage.cacheResponseData(data: response.0, for: request)
             }
             
-            let products: [APIModel.Product] = try decodeObject(from: response.0)
-            return (products, false)
+            let result: T = try decodeObject(from: response.0)
+            return (result, false)
         } catch {
             throw error
         }
