@@ -32,6 +32,9 @@ struct DetailsView: View {
                     Color.white
                         .aspectRatio(contentMode: .fit)
                         .frame(width: geo.size.width)
+                        .overlay {
+                            ProgressView()
+                        }
 
                 }
             }

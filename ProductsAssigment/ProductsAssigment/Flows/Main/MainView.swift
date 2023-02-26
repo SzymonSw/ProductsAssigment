@@ -11,12 +11,24 @@ struct MainView: View {
     @ObservedObject var viewModel: MainViewModel
     
     var body: some View {
-        List(viewModel.products) { product in
-            ProductCellView(product: product)
-                .onTapGesture {
-                    viewModel.onProductTapped(product: product)
+        VStack {
+            if let errorMessage = viewModel.errorMessage {
+                Text("Error: \(errorMessage)")
+                    .padding(.top, 10)
+            }
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                List(viewModel.products) { product in
+                    ProductCellView(product: product)
+                        .onTapGesture {
+                            viewModel.onProductTapped(product: product)
+                        }
                 }
+            }
+          
         }
+        
     }
     
     init(viewModel: MainViewModel) {

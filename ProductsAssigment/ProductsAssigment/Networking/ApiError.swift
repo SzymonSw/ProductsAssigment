@@ -8,11 +8,14 @@
 import Foundation
 enum ApiError: Error {
     case couldNotParseResponse
-    
+    case serverError
+
     var message: String {
         switch self {
         case .couldNotParseResponse:
             return "Could not parse response"
+        case .serverError:
+            return "Oops something went wrong"
         }
     }
 }

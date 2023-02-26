@@ -60,18 +60,23 @@ class ApiProvider: ApiProviderProtocol {
                 let result: T = try decodeObject(from: cachedData)
                 return (result, true)
             } catch {
-                throw error
+                print("Couldn't read cache")
+                //ignore this error
             }
         }
         
         do {
             let response = try await session.data(for: urlRequest)
-            Task {
-                await persistantStorage.cacheResponseData(data: response.0, for: request)
+            if let urlResponse = response.1 as? HTTPURLResponse, urlResponse.statusCode == 200 {
+                let result: T = try decodeObject(from: response.0)
+                Task {
+                    await persistantStorage.cacheResponseData(data: response.0, for: request)
+                }
+                return (result, false)
+            } else {
+                throw ApiError.serverError
             }
-            
-            let result: T = try decodeObject(from: response.0)
-            return (result, false)
+           
         } catch {
             throw error
         }

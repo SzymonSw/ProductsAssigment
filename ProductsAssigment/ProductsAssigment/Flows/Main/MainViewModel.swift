@@ -20,6 +20,9 @@ class MainViewModel: ObservableObject {
     
     @Published var products: [Model.Product] = []
     @Published var errorMessage: String?
+    @Published var isLoading: Bool = false
+
+    var displayingCachedData = false
 
     init(dependencies: Dependencies, delegate: MainViewDelegate?) {
         self.dependencies = dependencies
@@ -34,18 +37,27 @@ class MainViewModel: ObservableObject {
     private func fetchProducts(useCache: Bool) {
         Task {
             do {
+                isLoading = true
                 let productsResponse = try await dependencies.api.sendRequest(request: .getProducts, useCache: useCache, resultType: [APIModel.Product].self) 
                 products = productsResponse.result.map { Model.Product(apiModel: $0) }
 
                 if productsResponse.isFromCache {
+                    displayingCachedData = true
                     fetchProducts(useCache: false)
+                } else {
+                    displayingCachedData = false
                 }
                 errorMessage = nil
+                isLoading = false
             } catch {
+                isLoading = false
                 if let apiError = error as? ApiError {
                     errorMessage = apiError.message
                 } else {
                     errorMessage = error.localizedDescription
+                }
+                if displayingCachedData {
+                    errorMessage! += "\nDisplaying cached data"
                 }
             }
         }

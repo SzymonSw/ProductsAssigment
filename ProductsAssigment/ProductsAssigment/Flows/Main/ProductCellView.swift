@@ -30,6 +30,9 @@ struct ProductCellView: View {
             } placeholder: {
                 Color.white
                     .frame(width: 70, height: 70)
+                    .overlay {
+                        ProgressView()
+                    }
 
             }
 
