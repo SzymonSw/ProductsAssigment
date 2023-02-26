@@ -8,7 +8,7 @@
 import Combine
 
 class DetailsViewModel: ObservableObject {
-    @Published var product: Model.Product
+    @Published private(set) var product: Model.Product
     
     init(product: Model.Product) {
         self.product = product

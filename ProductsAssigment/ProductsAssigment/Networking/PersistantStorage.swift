@@ -23,6 +23,7 @@ actor PersistantStorage: PersistantStorageProtocol {
             return
         } catch {
             print(error)
+            //no need to handle this error
         }
     }
     

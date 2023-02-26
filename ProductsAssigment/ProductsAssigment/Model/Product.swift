@@ -19,7 +19,6 @@ extension APIModel {
         let description: String
         //assumption: backend will never return nil values
         //assumption: price has no currency, so no currency will be displayed
-
     }
 }
 

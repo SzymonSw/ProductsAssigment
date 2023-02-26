@@ -18,11 +18,11 @@ class MainViewModel: ObservableObject {
     private let dependencies: Dependencies
     private weak var delegate: MainViewDelegate?
     
-    @Published var products: [Model.Product] = []
-    @Published var errorMessage: String?
-    @Published var isLoading: Bool = false
+    @Published private(set) var products: [Model.Product] = []
+    @Published private(set) var errorMessage: String?
+    @Published private(set) var isLoading: Bool = false
 
-    var displayingCachedData = false
+    private var displayingCachedData = false
 
     init(dependencies: Dependencies, delegate: MainViewDelegate?) {
         self.dependencies = dependencies
@@ -49,16 +49,19 @@ class MainViewModel: ObservableObject {
                 }
                 errorMessage = nil
                 isLoading = false
+                
             } catch {
                 isLoading = false
+                var message: String
                 if let apiError = error as? ApiError {
-                    errorMessage = apiError.message
+                    message = apiError.message
                 } else {
-                    errorMessage = error.localizedDescription
+                    message = error.localizedDescription
                 }
                 if displayingCachedData {
-                    errorMessage! += "\nDisplaying cached data"
+                    message += "\nDisplaying cached data"
                 }
+                errorMessage = message
             }
         }
     }
