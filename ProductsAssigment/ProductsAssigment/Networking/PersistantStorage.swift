@@ -12,7 +12,6 @@ protocol PersistantStorageProtocol {
     func getCachedResponseData(for url: String) async -> Data?
 }
 
-
 actor PersistantStorage: PersistantStorageProtocol {
     var cachedResponsesFilePath: URL {
         let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
@@ -33,7 +32,6 @@ actor PersistantStorage: PersistantStorageProtocol {
         } catch {
             print(error)
         }
-
     }
     
     func getCachedResponseData(for url: String) async -> Data? {

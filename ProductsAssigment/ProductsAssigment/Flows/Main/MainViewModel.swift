@@ -13,13 +13,14 @@ protocol MainViewDelegate: AnyObject {
 
 @MainActor
 class MainViewModel: ObservableObject {
-    typealias Dependencies = HasApiPrvider
+    typealias Dependencies = HasApiProvider
     
     private let dependencies: Dependencies
     private weak var delegate: MainViewDelegate?
     
     @Published var products: [Model.Product] = []
-    
+    @Published var errorMessage: String?
+
     init(dependencies: Dependencies, delegate: MainViewDelegate?) {
         self.dependencies = dependencies
         self.delegate = delegate
@@ -31,16 +32,21 @@ class MainViewModel: ObservableObject {
     }
     
     private func fetchProducts(useCache: Bool) {
-        Task { [weak self] in
+        Task {
             do {
                 let productsResponse = try await dependencies.api.getProducts(useCache: useCache)
-                self?.products = productsResponse.products.map { Model.Product(apiModel: $0) }
+                products = productsResponse.products.map { Model.Product(apiModel: $0) }
 
                 if productsResponse.isFromCache {
-                    self?.fetchProducts(useCache: false)
+                    fetchProducts(useCache: false)
                 }
-            } catch  {
-                print(error)
+                errorMessage = nil
+            } catch {
+                if let apiError = error as? ApiError {
+                    errorMessage = apiError.message
+                } else {
+                    print(error)
+                }
             }
         }
     }

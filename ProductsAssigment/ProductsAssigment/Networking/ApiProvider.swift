@@ -14,7 +14,6 @@ protocol ApiProviderProtocol {
 class ApiProvider: ApiProviderProtocol {
 
     private let persistantStorage: PersistantStorageProtocol
-    
     private let session = URLSession.shared
 
     init(persistantStorage: PersistantStorageProtocol) {
@@ -42,7 +41,6 @@ class ApiProvider: ApiProviderProtocol {
             let products: [APIModel.Product] = try decodeObject(from: response.0)
             return (products, false)
         } catch {
-            print(error)
             throw error
         }
     }
@@ -50,8 +48,13 @@ class ApiProvider: ApiProviderProtocol {
     private func decodeObject<T>(from data: Data) throws -> T where T: Decodable {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let result = try decoder.decode(T.self, from: data)
-        return result
+        do {
+            let result = try decoder.decode(T.self, from: data)
+            return result
+
+        } catch {
+            throw ApiError.couldNotParseResponse
+        }
     }
         
 }

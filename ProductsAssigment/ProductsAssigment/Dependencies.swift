@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol HasApiPrvider {
+protocol HasApiProvider {
     var api: ApiProviderProtocol { get }
 }
 
@@ -15,7 +15,7 @@ protocol HasPersistantStorage {
     var storage: PersistantStorageProtocol { get }
 }
 
-struct AppDependency: HasApiPrvider, HasPersistantStorage {
+struct AppDependency: HasApiProvider, HasPersistantStorage {
     var api: ApiProviderProtocol
     var storage: PersistantStorageProtocol
 }
