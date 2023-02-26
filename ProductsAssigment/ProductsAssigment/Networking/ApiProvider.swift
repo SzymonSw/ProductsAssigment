@@ -65,7 +65,6 @@ class ApiProvider: ApiProviderProtocol {
             }
         }
         
-        try await Task.sleep(nanoseconds: 2_000_000_000)
         do {
             let response = try await session.data(for: urlRequest)
             if let urlResponse = response.1 as? HTTPURLResponse, urlResponse.statusCode == 200 {

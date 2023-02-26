@@ -57,8 +57,9 @@ final class MainViewModelTests: XCTestCase {
         XCTAssertTrue(sut.products.count == 3)
         
         Self.testVariant = .errorFetch
-        try awaitPublisher(sut.$errorMessage.collectNext(1))
-        XCTAssert(sut.errorMessage == "Oops something went wrong\nDisplaying cached data")
+        try awaitPublisher(sut.$errorMessage.collectNext(2))
+        XCTAssert(sut.errorMessage == "Oops something went wrong")
+        XCTAssertTrue(sut.isDisplayingCachedData)
     }
     
     func testProductTap() throws {
@@ -67,6 +68,17 @@ final class MainViewModelTests: XCTestCase {
         XCTAssertTrue(productTapDelegateCalled)
     }
 
+    func testRefreshTap() throws {
+        try testInitialFetch()
+        sut.onRefreshTapped()
+        
+        try awaitPublisher(sut.$products)
+        XCTAssert(sut.products.isEmpty)
+        
+        try awaitPublisher(sut.$products.collectNext(1))
+        XCTAssert(sut.products.count == 4)
+        XCTAssert(sut.errorMessage == nil)
+    }
 
 }
 extension MainViewModelTests: MainViewDelegate {
