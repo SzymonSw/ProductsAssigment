@@ -35,7 +35,6 @@ struct DetailsView: View {
                         .overlay {
                             ProgressView()
                         }
-
                 }
             }
             

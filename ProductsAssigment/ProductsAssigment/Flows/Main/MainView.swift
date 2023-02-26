@@ -33,9 +33,7 @@ struct MainView: View {
             if viewModel.isDisplayingCachedData {
                 Text("Displaying cached data!")
             }
-            
         }
-        
     }
     
     init(viewModel: MainViewModel) {

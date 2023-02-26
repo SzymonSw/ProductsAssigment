@@ -6,21 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-
-enum APIModel {}
-
-extension APIModel {
-    struct Product: Decodable {
-        let id: String
-        let name: String
-        let price: Double
-        let imageUrl: String
-        let description: String
-        //assumption: backend will never return nil values
-        //assumption: price has no currency, so no currency will be displayed
-    }
-}
 
 enum Model {}
 

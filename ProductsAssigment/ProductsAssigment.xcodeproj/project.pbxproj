@@ -26,6 +26,7 @@
 		FFC66EC629AB708C00CDA227 /* UnitTestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC66EC529AB708C00CDA227 /* UnitTestsAppDelegate.swift */; };
 		FFC66EC829AB70C300CDA227 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC66EC729AB70C300CDA227 /* main.swift */; };
 		FFC66EC929AB70E400CDA227 /* UnitTestsAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC66EC529AB708C00CDA227 /* UnitTestsAppDelegate.swift */; };
+		FFC66ECC29AB71FB00CDA227 /* API_Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC66ECB29AB71FB00CDA227 /* API_Product.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		FFC66EC129AB627300CDA227 /* ReactiveTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveTestHelpers.swift; sourceTree = "<group>"; };
 		FFC66EC529AB708C00CDA227 /* UnitTestsAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestsAppDelegate.swift; sourceTree = "<group>"; };
 		FFC66EC729AB70C300CDA227 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		FFC66ECB29AB71FB00CDA227 /* API_Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Product.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +106,9 @@
 				FF7115CC29A8FAFE00681C83 /* AppDelegate.swift */,
 				FFC66EC729AB70C300CDA227 /* main.swift */,
 				FF7115F929A8FBE500681C83 /* Dependencies.swift */,
+				FF7115FD29A8FC3400681C83 /* PersistantStorage.swift */,
 				FF7115FF29A8FCB200681C83 /* Flows */,
-				FF71160A29A8FDD600681C83 /* Model */,
+				FF71160A29A8FDD600681C83 /* Models */,
 				FF71160D29A8FE6B00681C83 /* Networking */,
 				FF7115D029A8FAFF00681C83 /* Assets.xcassets */,
 				FF71160E29A903A200681C83 /* Launch Screen.storyboard */,
@@ -153,18 +156,18 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
-		FF71160A29A8FDD600681C83 /* Model */ = {
+		FF71160A29A8FDD600681C83 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				FF71160B29A8FDE500681C83 /* Product.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		FF71160D29A8FE6B00681C83 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				FF7115FD29A8FC3400681C83 /* PersistantStorage.swift */,
+				FFC66ECA29AB71E800CDA227 /* API_Models */,
 				FF7115FB29A8FC0600681C83 /* ApiProvider.swift */,
 				FF71161229A9225000681C83 /* ApiError.swift */,
 			);
@@ -185,6 +188,14 @@
 				FF7115DE29A8FAFF00681C83 /* MainViewModelTests.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		FFC66ECA29AB71E800CDA227 /* API_Models */ = {
+			isa = PBXGroup;
+			children = (
+				FFC66ECB29AB71FB00CDA227 /* API_Product.swift */,
+			);
+			path = API_Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +305,7 @@
 				FF71160729A8FD6300681C83 /* DetailsView.swift in Sources */,
 				FF7115F829A8FBB200681C83 /* AppCoordinator.swift in Sources */,
 				FF71161129A90A9500681C83 /* ProductCellView.swift in Sources */,
+				FFC66ECC29AB71FB00CDA227 /* API_Product.swift in Sources */,
 				FF71161329A9225000681C83 /* ApiError.swift in Sources */,
 				FF7115FC29A8FC0600681C83 /* ApiProvider.swift in Sources */,
 				FF71160C29A8FDE500681C83 /* Product.swift in Sources */,
@@ -442,7 +454,7 @@
 				CODE_SIGN_ENTITLEMENTS = ProductsAssigment/ProductsAssigment.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D3LH3TE38R;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -480,7 +492,7 @@
 				CODE_SIGN_ENTITLEMENTS = ProductsAssigment/ProductsAssigment.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D3LH3TE38R;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
