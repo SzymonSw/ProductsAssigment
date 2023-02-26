@@ -49,7 +49,7 @@ final class MainViewModelTests: XCTestCase {
         XCTAssert(sut.errorMessage == nil)
     }
     
-    func testFetchWithError() throws {
+    func testFetchWithCacheAndError() throws {
         Self.testVariant = .cachedProducts
         sut = MainViewModel(dependencies: dependecies, delegate: self)
         
@@ -60,6 +60,15 @@ final class MainViewModelTests: XCTestCase {
         try awaitPublisher(sut.$errorMessage.collectNext(2))
         XCTAssert(sut.errorMessage == "Oops something went wrong")
         XCTAssertTrue(sut.isDisplayingCachedData)
+    }
+    
+    func testFetchWithError() throws {
+        Self.testVariant = .errorFetch
+        sut = MainViewModel(dependencies: dependecies, delegate: self)
+        
+        try awaitPublisher(sut.$errorMessage.collectNext(2))
+        XCTAssert(sut.errorMessage == "Oops something went wrong")
+        XCTAssertFalse(sut.isDisplayingCachedData)
     }
     
     func testProductTap() throws {
