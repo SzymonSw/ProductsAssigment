@@ -16,17 +16,24 @@ struct MainView: View {
                 Text("Error: \(errorMessage)")
                     .padding(.top, 10)
             }
+            List(viewModel.products) { product in
+                ProductCellView(product: product)
+                    .onTapGesture {
+                        viewModel.onProductTapped(product: product)
+                    }
+            }
+           
             if viewModel.isLoading {
-                ProgressView()
+                ProgressView().padding(.bottom, 10)
             } else {
-                List(viewModel.products) { product in
-                    ProductCellView(product: product)
-                        .onTapGesture {
-                            viewModel.onProductTapped(product: product)
-                        }
+                Button("Refresh") {
+                    viewModel.onRefreshTapped()
                 }
             }
-          
+            if viewModel.isDisplayingCachedData {
+                Text("Displaying cached data!")
+            }
+            
         }
         
     }
