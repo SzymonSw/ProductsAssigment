@@ -66,6 +66,7 @@
 		FFC66ECB29AB71FB00CDA227 /* API_Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Product.swift; sourceTree = "<group>"; };
 		FFC66ED029ACA5D200CDA227 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		FFC66ED429ACA66B00CDA227 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FFC66ED829ACABE600CDA227 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +108,7 @@
 		FF7115CB29A8FAFE00681C83 /* ProductsAssigment */ = {
 			isa = PBXGroup;
 			children = (
+				FFC66ED829ACABE600CDA227 /* Info.plist */,
 				FF7115CC29A8FAFE00681C83 /* AppDelegate.swift */,
 				FFC66EC729AB70C300CDA227 /* main.swift */,
 				FF7115F929A8FBE500681C83 /* Dependencies.swift */,
@@ -493,6 +495,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProductsAssigment/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
@@ -531,6 +534,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProductsAssigment/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
