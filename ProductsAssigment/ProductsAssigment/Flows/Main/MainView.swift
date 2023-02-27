@@ -13,7 +13,7 @@ struct MainView: View {
     var body: some View {
         VStack {
             if let errorMessage = viewModel.errorMessage {
-                Text("Error: \(errorMessage)")
+                Text(String(format: "MainView.Error.Format".localized(), errorMessage))
                     .padding(.top, 10)
             }
             List(viewModel.products) { product in
@@ -26,12 +26,12 @@ struct MainView: View {
             if viewModel.isLoading {
                 ProgressView().padding(.bottom, 10)
             } else {
-                Button("Refresh") {
+                Button("MainView.Button.Refresh".localized()) {
                     viewModel.onRefreshTapped()
                 }
             }
             if viewModel.isDisplayingCachedData {
-                Text("Displaying cached data!")
+                Text("MainView.CachedDataInfo".localized())
             }
         }
     }

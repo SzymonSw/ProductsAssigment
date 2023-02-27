@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  ProductsAssigment
+
+  Created by Szymon Swietek on 27/02/2023.
+  
+*/
+
+"MainView.Button.Refresh" = "Refresh";
+"MainView.Title" = "Products";
+"MainView.Error.Format" = "Error: %@";
+"MainView.CachedDataInfo" = "Displaying cached data!";
+
+"ApiError.couldNotParseResponse" = "Could not parse response";
+"ApiError.serverError" = "Oops something went wrong";
+
+"DetailsView.Price" = "Price:";
+"DetailsView.Description" = "Description:";

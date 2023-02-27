@@ -13,11 +13,11 @@ struct DetailsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Group {
-                Text("Price:").font(.system(size: 12))
+                Text("DetailsView.Price".localized()).font(.system(size: 12))
                 Text("\(viewModel.product.price, specifier: "%.2f")")
                     .padding(.bottom, 20)
 
-                Text("Description:").font(.system(size: 12))
+                Text("DetailsView.Description".localized()).font(.system(size: 12))
                 Text(viewModel.product.description)
             }
             .padding(.leading, 10)
@@ -37,7 +37,6 @@ struct DetailsView: View {
                         }
                 }
             }
-            
         }
     }
     

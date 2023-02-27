@@ -37,7 +37,7 @@ enum ApiRequests {
     }
 }
 
-class ApiProvider: ApiProviderProtocol {
+final class ApiProvider: ApiProviderProtocol {
 
     private let persistantStorage: PersistantStorageProtocol
     private let session = URLSession.shared
@@ -61,7 +61,7 @@ class ApiProvider: ApiProviderProtocol {
                 return (result, true)
             } catch {
                 print("Couldn't read cache")
-                //ignore this error
+                //ignore this error and continue with real fetch
             }
         }
         

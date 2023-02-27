@@ -22,8 +22,7 @@ actor PersistantStorage: PersistantStorageProtocol {
             try data.write(to: filePath)
             return
         } catch {
-            print(error)
-            //no need to handle this error
+            print("Failed to save cache to file \(error)")
         }
     }
     

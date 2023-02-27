@@ -7,7 +7,7 @@
 
 import Combine
 
-class DetailsViewModel: ObservableObject {
+final class DetailsViewModel: ObservableObject {
     @Published private(set) var product: Model.Product
     
     init(product: Model.Product) {

@@ -12,7 +12,7 @@ protocol MainViewDelegate: AnyObject {
 }
 
 @MainActor
-class MainViewModel: ObservableObject {
+final class MainViewModel: ObservableObject {
     typealias Dependencies = HasApiProvider
     
     private let dependencies: Dependencies

@@ -13,9 +13,9 @@ enum ApiError: Error {
     var message: String {
         switch self {
         case .couldNotParseResponse:
-            return "Could not parse response"
+            return "ApiError.couldNotParseResponse".localized()
         case .serverError:
-            return "Oops something went wrong"
+            return "ApiError.serverError".localized()
         }
     }
 }

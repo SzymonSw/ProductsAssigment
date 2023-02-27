@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 @MainActor
-class AppCoordinator {
+final class AppCoordinator {
     private var mainNav: UINavigationController!
     private var dependencies: AppDependency!
 
@@ -20,7 +20,7 @@ class AppCoordinator {
 
         let mainViewModel = MainViewModel(dependencies: dependencies, delegate: self)
         let mainViewController = UIHostingController(rootView: MainView(viewModel: mainViewModel))
-        mainViewController.title = "Products"
+        mainViewController.title = "MainView.Title".localized()
         mainNav.setViewControllers([mainViewController], animated: false)
     }
 
